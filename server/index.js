@@ -5,8 +5,14 @@ const mongoose = require('mongoose');
 const { OpenAI } = require('openai'); // We use OpenAI SDK for Groq
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",                    
+    "https://ui-generator-agent.netlify.app"
+  ],
+  methods: ["GET", "POST"],
+  credentials: true
+}));app.use(express.json());
 
 // 1. Database Connection
 mongoose.connect(process.env.MONGO_URI)
